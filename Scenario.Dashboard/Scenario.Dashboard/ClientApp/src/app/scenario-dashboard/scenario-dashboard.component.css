@@ -1,0 +1,14 @@
+.example-container {
+    height: 400px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+
+.gray { background-color: #f5f5f5 }

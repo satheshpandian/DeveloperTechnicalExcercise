@@ -1,0 +1,76 @@
+<h1 id="tableLabel">Scenarios</h1>
+<form [formGroup]="scenariosForm" class="basic-container">
+  <mat-card *ngIf="displayProgress">
+    <mat-card-content>        
+      <section class="example-section">
+        <mat-progress-bar
+          class="example-margin"
+          [color]="color"
+          [value]="value"
+          [bufferValue]="bufferValue"
+          mode="buffer"></mat-progress-bar>          
+      </section>
+    </mat-card-content>
+  </mat-card>
+<mat-form-field appearance="fill">
+  <mat-label>Choose NetWork Layer ID</mat-label>
+  <mat-select formControlName="ctlNetworkLayerID" id="ctlNetworkLayerID" (selectionChange)="networklayerchanged($event.value)" [(ngModel)]="selectedNetworkLayerID">
+    <mat-option *ngFor="let networkLayer of networkLayerIDs" [value]="networkLayer">
+      {{networkLayer}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="hasError('ctlNetworkLayerID', 'required')">Network Layer ID is required</mat-error>
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="marketIDs">
+  <mat-label>Choose market ID</mat-label>
+  <mat-select formControlName="ctlMarketID" id="ctlMarketID" (selectionChange)="marketIDchanged($event.value)" [(ngModel)]="selectedMarketID">
+    <mat-option *ngFor="let marketID of marketIDs" [value]="marketID">
+      {{marketID}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="hasError('ctlMarketID', 'required')">Market ID is required</mat-error>
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="NumOfMonths">
+  <mat-label>Choose number of months</mat-label>
+  <mat-select formControlName="ctlNumOfMonths" id="ctlNumOfMonths" (selectionChange)="numOfMonthschanged($event.value)" [(ngModel)]="selectedNumOfMonths">
+    <mat-option *ngFor="let numOfMonth of NumOfMonths" [value]="numOfMonth">
+      {{numOfMonth}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="hasError('ctlNumOfMonths', 'required')">Number of months is required</mat-error>
+</mat-form-field>
+</form>
+<div class="example-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef> Surname </th>
+      <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="forename">
+      <th mat-header-cell *matHeaderCellDef> Forename </th>
+      <td mat-cell *matCellDef="let element"> {{element.forename}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sampleDate">
+      <th mat-header-cell *matHeaderCellDef> SampleDate </th>
+      <td mat-cell *matCellDef="let element"> {{element.sampleDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creationDate">
+      <th mat-header-cell *matHeaderCellDef> CreationDate </th>
+      <td mat-cell *matCellDef="let element"> {{element.creationDate | date }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{gray: index % 2 == 0 }"></tr>
+  </table>
+
+  <mat-paginator [pageSize]="pageSize">
+  </mat-paginator>
+</div>
